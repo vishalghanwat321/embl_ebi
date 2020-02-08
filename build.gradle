@@ -1,0 +1,50 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.3.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+bootRun {
+    sourceResources sourceSets.main
+    main = 'com.org.web.embl_ebi.EMBL_EBI_Application'
+}
+
+bootJar {
+    mainClassName = 'com.org.web.embl_ebi.EMBL_EBI_Application'
+    baseName = 'EMBL_EBI'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'com.h2database:h2'
+    compile 'org.modelmapper:modelmapper:2.0.0'
+    compile 'org.springframework.data:spring-data-envers:1.1.6.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    runtime 'org.springframework.boot:spring-boot-starter-tomcat'
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+    compile 'io.springfox:springfox-swagger2:2.9.2'
+    compile 'org.apache.commons:commons-lang3:3.6'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.springframework.security:spring-security-test'
+}
